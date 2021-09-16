@@ -1,0 +1,8 @@
+<ul class="user-list">
+  <li
+    *ngFor="let user of users; let first = first"
+    class="user-list__item"
+    [class.active]="first"
+    (dblclick)="selectUser.emit(user.id)"
+  >{{user.name}}</li>
+</ul>
