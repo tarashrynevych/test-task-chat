@@ -1,0 +1,31 @@
+@import 'variables';
+
+.chat {
+  $header-height: 70px;
+
+  &__header {
+    height: $header-height;
+    font-weight: 600;
+    padding: 20px;
+    border: 1px solid $border-color-black;
+    background-color: $background-color-grey;
+    color: $text-color-grey;
+  }
+
+  &__main,
+  &__side-section {
+    display: inline-block;
+  }
+
+  &__main {
+    width: 85%;
+  }
+
+  &__side-section {
+    width: 15%;
+    height: calc(100vh - #{$header-height});
+    padding: 25px;
+    border: 1px solid $color-black;
+    background-color: $background-color-grey;
+  }
+}
