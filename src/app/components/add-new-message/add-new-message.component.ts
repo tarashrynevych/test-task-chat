@@ -34,8 +34,8 @@ export class AddNewMessageComponent implements OnInit, OnDestroy {
   }
 
   public submitNewMessage(): void {
-    this.addNewMessage.emit(this.addNewMessageForm.get('message').value);
-    this.addNewMessageForm.get('message').reset();
+    this.addNewMessage.emit(this.messageFormControl.value);
+    this.messageFormControl.reset();
   }
 
   private buildAddNewMessageForm(): FormGroup {

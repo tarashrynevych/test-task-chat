@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { User}  from '../../interfaces/user.interface';
-import {CommunicationHelperService} from "../../services/communication-helper.service";
+import { CommunicationHelperService } from "../../services/communication-helper.service";
 
 @Component({
   selector: 'app-user-list',
