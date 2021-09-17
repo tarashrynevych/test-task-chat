@@ -12,19 +12,22 @@
     color: $text-color-grey;
   }
 
-  &__main,
-  &__side-section {
-    display: inline-block;
+  &__main-wrapper {
+    display: flex;
   }
 
-  &__main {
+  &__main-section {
     width: 85%;
+    height: calc(100vh - #{$header-height});
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   &__side-section {
     width: 15%;
     height: calc(100vh - #{$header-height});
-    padding: 25px;
+    padding: 15px;
     border: 1px solid $color-black;
     background-color: $background-color-grey;
   }

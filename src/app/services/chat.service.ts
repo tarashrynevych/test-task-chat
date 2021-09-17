@@ -1,5 +1,5 @@
-import { DefaultEventsMap } from 'socket.io-client/build/typed-events';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { DefaultEventsMap } from 'socket.io-client/build/typed-events';
 import { io, Socket } from 'socket.io-client';
 
 import { Injectable } from '@angular/core';
@@ -25,13 +25,8 @@ export class ChatService {
     this.addSocketListeners();
   }
 
-  public postMessage(messageText: string): void {
-    const payload = {
-      messageText,
-      userId: this.userId
-    };
-
-    this.socket.emit('new message', payload)
+  public postMessage(message: string): void {
+    this.socket.emit('new message', message)
   }
 
   public addUser(userName: string): void {
@@ -47,13 +42,18 @@ export class ChatService {
     this.socket.on(SocketEventsEnum.CONNECT, () => {
       this.userId = this.socket.id;
     });
-    this.socket.on(SocketEventsEnum.USERS_LIST, (usersList: User[]) => {
-      console.log('list of user ', usersList);
-      this.usersList$.next(usersList)
+    this.socket.on(SocketEventsEnum.USERS_LIST_UPDATED, (usersList: User[]) => {
+      const currentUser = usersList.find((user: User) => user.id === this.userId);
+      const usersWithoutCurrent = usersList.filter((user: User) => user.id !== this.userId);
+      const sortedUsers = [currentUser, ...usersWithoutCurrent];
+      this.usersList$.next(sortedUsers)
     });
     this.socket.on(SocketEventsEnum.NEW_MESSAGE, (message: Message) => {
-      console.log('new message ', message);
       this.newMessage$.next(message)
+    });
+    this.socket.on(SocketEventsEnum.DISCONNECT, () => {
+      this.userIsSet$.next(false);
+      alert('Connection is lost, please try to re-login')
     });
   }
 }

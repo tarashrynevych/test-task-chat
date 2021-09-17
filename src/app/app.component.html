@@ -1,11 +1,12 @@
 <ng-container *ngIf="userNameIsSet$ | async; else enterNameFrom">
   <h2 class="chat__header">Chat</h2>
-  <app-chat class="chat__main">Main</app-chat>
-  <app-user-list
-    (selectUser)="selectUser($event)"
-    [users]="users$ | async"
-    class="chat__side-section"
-  ></app-user-list>
+  <div class="chat__main-wrapper">
+    <div class="chat__main-section">
+      <app-message-list [messages]="messages$ | async"></app-message-list>
+      <app-add-new-message (addNewMessage)="addNewMessage($event)"></app-add-new-message>
+    </div>
+    <app-user-list [users]="users$ | async" class="chat__side-section"></app-user-list>
+  </div>
 </ng-container>
 <ng-template #enterNameFrom>
   <app-login-page (addNewUser)="addNewUser($event)"></app-login-page>

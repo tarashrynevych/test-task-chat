@@ -1,4 +1,4 @@
-<form [formGroup]="userInfoForm" class="login-page">
+<form [formGroup]="loginForm" class="login-page">
   <h2 class="login-page__header">Please enter your name</h2>
   <input
     class="login-page__input-field"
@@ -7,8 +7,8 @@
     type="text"
   />
   <button
-    (click)="addNewUser.emit(userInfoForm.get('userName').value)"
-    [disabled]="userInfoForm.invalid"
+    (click)="addNewUser.emit(loginForm.get('userName').value)"
+    [disabled]="loginForm.invalid"
     class="login-page__add-user-button"
   >Start chatting</button>
 </form>

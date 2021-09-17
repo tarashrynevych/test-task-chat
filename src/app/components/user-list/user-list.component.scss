@@ -9,16 +9,17 @@
 
   &__item {
     padding: 15px;
-    cursor: pointer;
 
     &.active {
       background-color: $background-color-blue;
       color: $text-color-white;
+      pointer-events: none;
     }
 
-    &:hover {
+    &:hover:not(.active) {
       background-color: $background-color-grey-light;
       color: $text-color-main;
+      cursor: pointer;
     }
 
     &:not(:last-child) {

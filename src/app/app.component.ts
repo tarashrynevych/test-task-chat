@@ -1,9 +1,11 @@
 import { Observable } from 'rxjs';
+import { scan } from 'rxjs/operators';
 
 import { Component } from '@angular/core';
 
 import { ChatService } from './services/chat.service';
 import { User } from './interfaces/user.interface';
+import { Message } from './interfaces/message.interface';
 
 @Component({
   selector: 'app-root',
@@ -11,16 +13,18 @@ import { User } from './interfaces/user.interface';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public readonly users$: Observable<User[]> = this.chartService.usersList$;
-  public readonly userNameIsSet$: Observable<boolean> = this.chartService.userIsSet$;
+  public readonly users$: Observable<User[]> = this.chatService.usersList$;
+  public readonly userNameIsSet$: Observable<boolean> = this.chatService.userIsSet$;
+  public readonly messages$: Observable<Message[]> = this.chatService.newMessage$
+    .pipe(scan((acc, curr) => [...acc, curr], []));
 
-  constructor(private chartService: ChatService) {}
+  constructor(private chatService: ChatService) {}
 
-  public selectUser(userId: number): void {
-
+  public addNewMessage(message: string): void {
+    this.chatService.postMessage(message)
   }
 
   public addNewUser(userName: string): void {
-    this.chartService.addUser(userName);
+    this.chatService.addUser(userName);
   }
 }
